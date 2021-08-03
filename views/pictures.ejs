@@ -1,0 +1,48 @@
+<!<!DOCTYPE>
+<html>
+       <head>
+           <title> Production </title>
+           <link rel="stylesheet" type="" href="/pic_style.css">
+       </head>
+       <body>
+                <% var n2=parseInt(page) %>
+                <% n2=n2+1 %>
+                <% var newpage2 = n2.toString() %>
+
+
+            <div class="search_div">
+            <form action="/pics" method="GET" class="search_form_div">
+            <div class="btn">
+                <label for="search" class="search-label">Search Photo</label>
+                <input type="text" class="search-control" placeholder="Example Sun" name="searchterm">
+            </div>
+            <button type="submit" class="search_btn">Search</button>
+           </form>
+           </div>
+
+
+           <div class="container">
+            <% if (n2>=1) {%>
+              <h1> The is the serch result for "<%=searchterm%>" on page <%= page %>.</h1>
+              <% } %>
+                 <% for(var i = 0;i < picData.results.length;i++){ %>
+                <a href="<%= picData.results[i].urls.raw %>">
+                <div class="box">
+                        <img src="<%= picData.results[i].urls.small %>" style="width:286px; height:180px;">
+                        <p>By: <%= picData.results[i].user.name %> on <%= picData.results[i].created_at %></p>
+                        <p>Dimensions: <%= picData.results[i].width %> X <%= picData.results[i].height %></p>
+                        <p> Likes: <%= picData.results[i].likes %> </p>
+                </div>
+                </a>
+                <% } %>
+           </div>
+           <% if(n2>=1) {%>
+           <div class="next_btn_div">
+               
+                <form action="/pics/<%=newpage2%>/<%=searchterm%>" method="GET">
+                <button type="submit" class="next_btn">Next</button>
+           </div>
+           <% } %>
+
+       </body>
+</html>
